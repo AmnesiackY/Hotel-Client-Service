@@ -3,13 +3,13 @@ version: "3.9"
 services:
   postgres:
     image: postgres:16
-    container_name: hotel-postgres-db
+    container_name: hotel-postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: hotel-db
-      POSTGRES_USER: hotel_user_admin
-      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: hotel
+      POSTGRES_USER: hotel_user
+      POSTGRES_PASSWORD: hotel_pass
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

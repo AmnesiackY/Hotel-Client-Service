@@ -1,15 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:hotel-db
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:postgresql://localhost:5432/hotel
+    username: hotel_user
+    password: hotel_pass
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-  h2:
-    console:
-      enabled: true
