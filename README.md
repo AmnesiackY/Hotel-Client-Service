@@ -164,12 +164,13 @@ Flyway automatically applies all pending migrations on application startup.
 
 ## 🚀 Roadmap
 ```
-̶1̶.̶ ̶P̶o̶s̶t̶g̶r̶e̶S̶Q̶L̶ ̶v̶i̶a̶ ̶D̶o̶c̶k̶e̶r̶
-̶2̶.̶ ̶F̶l̶y̶w̶a̶y̶ ̶d̶a̶t̶a̶b̶a̶s̶e̶ ̶m̶i̶g̶r̶a̶t̶i̶o̶n̶s̶
-3. OpenAPI / Swagger documentation
-4. Dockerized Spring Boot application
-5. Unit and integration tests
-6. CI pipeline
+1. OpenAPI / Swagger documentation
+2. Dockerized Spring Boot application
+3. Unit and integration tests
+4. CI pipeline
+
+̶1P̶o̶s̶t̶g̶r̶e̶S̶Q̶L̶ ̶v̶i̶a̶ ̶D̶o̶c̶k̶e̶r̶
+F̶l̶y̶w̶a̶y̶ ̶d̶a̶t̶a̶b̶a̶s̶e̶ ̶m̶i̶g̶r̶a̶t̶i̶o̶n̶s̶
 ```
 
 
