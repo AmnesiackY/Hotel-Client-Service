@@ -3,8 +3,9 @@
 Spring Boot microservice for managing hotel clients.  
 Built with **Kotlin**, **Spring Boot**, **PostgreSQL**, and **Flyway**.
 
-This project demonstrates clean backend architecture, proper REST API design,
-and controlled database schema evolution with Flyway in a production-ready persistence setup.
+This project focuses on clean backend architecture, proper REST API design,
+and controlled database schema evolution using Flyway with a production-ready persistence setup.
+
 
 
 ---
