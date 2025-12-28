@@ -1,5 +1,7 @@
 # Hotel Client Service
 
+![Build](https://github.com/AmnesiackY/Hotel-Client-Service/actions/workflows/build.yml/badge.svg)
+
 Spring Boot microservice for managing hotel clients.  
 Built with **Kotlin**, **Spring Boot**, **PostgreSQL**, and **Flyway**.
 
@@ -62,7 +64,7 @@ from frameworks and infrastructure concerns.
 - Java 17
 - Docker & Docker Compose
 
-## Start PostgreSQL
+### Start PostgreSQL
 
 ```bash
 docker compose up -d
@@ -89,7 +91,7 @@ http://localhost:8080
 
 # 🧪 API Usage Examples
 
-## Create client
+### Create client
 ```
 POST /api/clients
 Content-Type: application/json
@@ -101,17 +103,17 @@ Content-Type: application/json
 }
 ```
 
-## Get client by id
+### Get client by id
 ```
 GET /api/clients/{id}
 ```
 
-## Get all clients
+### Get all clients
 ```
 GET /api/clients
 ```
 
-## Delete client
+### Delete client
 ```
 DELETE /api/clients/{id}
 
