@@ -1,11 +1,6 @@
 package com.yarek.hotel.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "clients")
@@ -13,7 +8,7 @@ class ClientEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0,
 
     @Column(nullable = false)
     val firstName: String,
@@ -22,5 +17,8 @@ class ClientEntity(
     val lastName: String,
 
     @Column(nullable = false, unique = true)
-    val email: String
+    val email: String,
+
+    @Column(name = "phone")
+    val phone: String? = null
 )

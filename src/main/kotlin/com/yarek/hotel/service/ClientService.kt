@@ -15,7 +15,8 @@ class ClientService(
         val entity = ClientEntity(
             firstName = dto.firstName,
             lastName = dto.lastName,
-            email = dto.email
+            email = dto.email,
+            phone = dto.phone
         )
         return repository.save(entity).toDto()
     }
@@ -40,6 +41,7 @@ class ClientService(
             id = id,
             firstName = firstName,
             lastName = lastName,
-            email = email
+            email = email,
+            phone = phone
         )
 }
