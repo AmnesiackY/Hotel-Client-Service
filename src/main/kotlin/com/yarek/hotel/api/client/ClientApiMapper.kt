@@ -1,7 +1,7 @@
 package com.yarek.hotel.api.client
 
+import com.yarek.hotel.api.dto.ClientDto
 import com.yarek.hotel.domain.client.Client
-import com.yarek.hotel.dto.ClientDto
 
 fun ClientDto.toDomain(): Client =
     Client(
