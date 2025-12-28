@@ -42,42 +42,16 @@ and controlled database schema evolution using Flyway with a production-ready pe
 
 ## 📂 Project Structure
 
-```text
-hotel-client-service
-├── README.md
-├── build.gradle.kts
-├── settings.gradle.kts
-├── docker-compose.yml
-└── src
-    └── main
-        ├── kotlin
-        │   └── com
-        │       └── yarek
-        │           └── hotel
-        │               ├── controller
-        │               │   ├── ClientController.kt
-        │               │   └── PingController.kt
-        │               ├── service
-        │               │   ├── ClientService.kt
-        │               │   └── PingService.kt
-        │               ├── repository
-        │               │   └── ClientRepository.kt
-        │               ├── entity
-        │               │   └── ClientEntity.kt
-        │               ├── dto
-        │               │   └── ClientDto.kt
-        │               ├── exception
-        │               │   ├── ApiError.kt
-        │               │   ├── ClientNotFoundException.kt
-        │               │   └── GlobalExceptionHandler.kt
-        │               └── HotelApplication.kt
-        └── resources
-            ├── application.yml
-            └── db
-                └── migration
-                    ├── V1__create_clients_table.sql
-                    └── V2__add_phone_to_clients.sql
-```
+The project follows a layered and Clean Architecture inspired structure.
+
+Key layers:
+- **API layer** – REST controllers and request/response models
+- **Application layer** – business use cases
+- **Domain layer** – core business models and contracts
+- **Infrastructure layer** – persistence and external integrations
+
+This separation allows business logic to remain independent
+from frameworks and infrastructure concerns.
 
 ---
 
@@ -87,8 +61,6 @@ hotel-client-service
 
 - Java 17
 - Docker & Docker Compose
-
-# How to start?
 
 ## Start PostgreSQL
 
@@ -193,13 +165,13 @@ from being merged.
 ```
 1. OpenAPI / Swagger documentation
 2. Dockerized Spring Boot application
-3. Unit and integration tests
+3. Extended unit and integration test coverage
 ```
 
 
 
 👤 Author
 
-Yaroslav Yarovyi
-QA / Automation Engineer
-Exploring backend development with Kotlin & Spring
+Yaroslav Yarovyi  
+QA / Automation Engineer  
+Currently exploring backend development with Kotlin & Spring
