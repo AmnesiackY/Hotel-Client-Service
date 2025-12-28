@@ -42,19 +42,57 @@ and controlled database schema evolution using Flyway with a production-ready pe
 
 ---
 
-## 📂 Project Structure
+## 🏗 Architecture
 
-The project follows a layered and Clean Architecture inspired structure.
+The project follows a **Clean Architecture inspired structure** with clear
+separation of concerns.
 
-Key layers:
-- **API layer** – REST controllers and request/response models
-- **Application layer** – business use cases
-- **Domain layer** – core business models and contracts
-- **Infrastructure layer** – persistence and external integrations
+Layers overview:
 
-This separation allows business logic to remain independent
-from frameworks and infrastructure concerns.
+- **API layer**
+  - REST controllers
+  - API DTOs
+  - API mappers
+  - Swagger/OpenAPI documentation
 
+- **Application layer**
+  - Use cases (business actions)
+  - Orchestrates domain logic
+  - Independent from frameworks
+
+- **Domain layer**
+  - Core business models
+  - Repository contracts
+  - Business exceptions
+
+- **Infrastructure layer**
+  - JPA repositories
+  - Database entities
+  - External integrations
+
+Business logic depends only on domain contracts and is fully testable
+without Spring context or database.
+---
+## 🧩 Architecture Diagram
+
+```
+[ Controller / API ]
+          |
+          v
+     [ API DTOs ]
+          |
+          v
+     [ Use Cases ]
+          |
+          v
+      [ Domain ]
+          |
+          v
+[ Repository Interface ]
+          |
+          v
+[ JPA Adapter / Database ]
+```
 ---
 
 ## ▶️ Running the Application
@@ -89,38 +127,25 @@ The service will be available at:
 http://localhost:8080
 ```
 
-# 🧪 API Usage Examples
+## 🧪 API Usage
 
-### Create client
+All API endpoints can be explored and tested using the interactive
+**Swagger UI**.
+
+After starting the application, open:
+
 ```
-POST /api/clients
-Content-Type: application/json
-
-{
-"firstName": "John",
-"lastName": "Doe",
-"email": "john@hotel.com"
-}
+http://localhost:8080/swagger-ui/index.html
 ```
 
-### Get client by id
-```
-GET /api/clients/{id}
-```
+Swagger provides:
+- full list of available endpoints
+- request and response schemas
+- interactive request execution directly from the browser
 
-### Get all clients
-```
-GET /api/clients
-```
+This allows quick exploration of the API without any additional tools
+such as Postman.
 
-### Delete client
-```
-DELETE /api/clients/{id}
-
-Responses:
-204 No Content — client deleted
-404 Not Found — client does not exist
-```
 
 ## 🗄 Database & Migrations
 
@@ -135,7 +160,7 @@ src/main/resources/db/migration
 ```
 Flyway automatically applies all pending migrations on application startup.
 
-## 🧪 Testing
+## ⚙️ Testing
 
 The project includes **unit tests for application use cases**.
 
@@ -165,9 +190,8 @@ from being merged.
 
 ## 🚀 Roadmap
 ```
-1. OpenAPI / Swagger documentation
-2. Dockerized Spring Boot application
-3. Extended unit and integration test coverage
+1. Dockerized Spring Boot application
+2. Extended unit and integration test coverage
 ```
 
 
