@@ -4,4 +4,5 @@ interface ClientRepository {
     fun save(client: Client): Client
     fun findById(id: Long): Client?
     fun deleteById(id: Long): Boolean
+    fun findAll(): List<Client>
 }

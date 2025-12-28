@@ -24,4 +24,7 @@ class ClientJpaRepositoryAdapter(
         } else {
             false
         }
+
+    override fun findAll(): List<Client> =
+        jpaRepository.findAll().map { it.toDomain() }
 }
