@@ -1,5 +1,7 @@
 package com.yarek.hotel.application.client
 
+import com.yarek.hotel.domain.client.Client
+import com.yarek.hotel.domain.client.ClientRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -8,14 +10,14 @@ class CreateClientUseCaseTest {
     @Test
     fun `should create client`() {
         // given: fake repository
-        val fakeRepository = object : com.yarek.hotel.domain.client.ClientRepository {
-            override fun save(client: com.yarek.hotel.domain.client.Client): com.yarek.hotel.domain.client.Client =
+        val fakeRepository = object : ClientRepository {
+            override fun save(client: Client): Client =
                 client.copy(id = 1L)
         }
 
-        val useCase = com.yarek.hotel.application.client.CreateClientUseCase(fakeRepository)
+        val useCase = CreateClientUseCase(fakeRepository)
 
-        val input = com.yarek.hotel.domain.client.Client(
+        val input = Client(
             firstName = "John",
             lastName = "Doe",
             email = "john@test.com",
