@@ -25,3 +25,11 @@ jobs:
 
       - name: Build and run tests
         run: ./gradlew clean build
+
+      - name: Publish test report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Unit Tests
+          path: build/test-results/test/*.xml
+          reporter: java-junit

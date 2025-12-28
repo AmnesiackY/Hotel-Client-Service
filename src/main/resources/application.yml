@@ -18,4 +18,3 @@ spring:
     endpoint:
       health:
         show-details: never
-

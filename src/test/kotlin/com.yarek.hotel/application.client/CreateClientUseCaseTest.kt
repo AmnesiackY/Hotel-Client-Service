@@ -20,6 +20,9 @@ class CreateClientUseCaseTest {
 
             override fun deleteById(id: Long): Boolean =
                 false
+
+            override fun findAll(): List<Client> =
+                emptyList()
         }
 
 
