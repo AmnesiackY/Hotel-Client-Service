@@ -22,6 +22,13 @@ class ClientController(
     private val getAllClientsUseCase: GetAllClientsUseCase
 ) {
 
+    @Operation(summary = "Create client")
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Ok"),
+            ApiResponse(responseCode = "400", description = "Bad request")
+        ]
+    )
     @PostMapping
     fun create(@RequestBody dto: ClientDto): ClientDto =
         createClientUseCase.execute(dto.toDomain()).toDto()
@@ -37,6 +44,12 @@ class ClientController(
     fun getById(@PathVariable id: Long): ClientDto =
         getClientByIdUseCase.execute(id).toDto()
 
+    @Operation(summary = "Get all clients")
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Ok"),
+        ]
+    )
     @GetMapping
     fun getAll(): List<ClientDto> =
         getAllClientsUseCase.execute().map { it.toDto() }
