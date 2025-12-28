@@ -1,32 +1,29 @@
 package com.yarek.hotel.controller
 
+import com.yarek.hotel.api.client.toDomain
+import com.yarek.hotel.application.client.CreateClientUseCase
+import com.yarek.hotel.application.client.GetClientByIdUseCase
+import com.yarek.hotel.domain.client.Client
 import com.yarek.hotel.dto.ClientDto
 import com.yarek.hotel.service.ClientService
-import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/clients")
 class ClientController(
+    private val createClientUseCase: CreateClientUseCase,
+    private val getClientByIdUseCase: GetClientByIdUseCase,
     private val service: ClientService
 ) {
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody dto: ClientDto): ClientDto =
-        service.create(dto)
+    fun create(@RequestBody dto: ClientDto): ClientDto =
+        createClientUseCase.execute(dto.toDomain()).toDto()
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long): ClientDto =
-        service.get(id)
+    fun getById(@PathVariable id: Long): ClientDto =
+        getClientByIdUseCase.execute(id).toDto()
 
     @GetMapping
     fun getAll(): List<ClientDto> =
@@ -37,4 +34,12 @@ class ClientController(
     fun delete(@PathVariable id: Long) {
         service.delete(id)
     }
+
+    fun Client.toDto(): ClientDto = ClientDto(
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+        phone = phone
+    )
 }

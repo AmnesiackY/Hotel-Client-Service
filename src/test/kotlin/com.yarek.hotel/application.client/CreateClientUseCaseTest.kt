@@ -11,13 +11,18 @@ class CreateClientUseCaseTest {
     fun `should create client`() {
         // given: fake repository
         val fakeRepository = object : ClientRepository {
+
             override fun save(client: Client): Client =
                 client.copy(id = 1L)
+
+            override fun findById(id: Long): Client? =
+                null
         }
+
 
         val useCase = CreateClientUseCase(fakeRepository)
 
-        val input = Client(
+        val client = Client(
             firstName = "John",
             lastName = "Doe",
             email = "john@test.com",
@@ -25,7 +30,7 @@ class CreateClientUseCaseTest {
         )
 
         // when
-        val result = useCase.execute(input)
+        val result = useCase.execute(client)
 
         // then
         assertEquals(1L, result.id)

@@ -11,4 +11,9 @@ class ClientJpaRepositoryAdapter(
 
     override fun save(client: Client): Client =
         jpaRepository.save(client.toEntity()).toDomain()
+
+    override fun findById(id: Long): Client? =
+        jpaRepository.findById(id)
+            .orElse(null)
+            ?.toDomain()
 }
