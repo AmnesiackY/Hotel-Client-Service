@@ -12,16 +12,10 @@ class GlobalExceptionHandler {
     @ExceptionHandler(ClientNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun handleClientNotFound(ex: ClientNotFoundException): ApiError =
-        ApiError(
-            message = ex.message ?: "Client not found"
-        )
+        ApiError(ex.message ?: "Client not found")
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleValidation(ex: MethodArgumentNotValidException): ApiError =
-        ApiError(
-            message = ex.bindingResult
-                .fieldErrors
-                .joinToString { "${it.defaultMessage}" }
-        )
+        ApiError("Validation failed")
 }
