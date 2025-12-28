@@ -16,4 +16,12 @@ class ClientJpaRepositoryAdapter(
         jpaRepository.findById(id)
             .orElse(null)
             ?.toDomain()
+
+    override fun deleteById(id: Long): Boolean =
+        if (jpaRepository.existsById(id)) {
+            jpaRepository.deleteById(id)
+            true
+        } else {
+            false
+        }
 }

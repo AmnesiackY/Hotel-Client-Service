@@ -16,6 +16,8 @@ class GetClientByIdUseCaseTest {
                 Client(id = 1L, firstName = "John", lastName = "Doe", email = "a@b.com", phone = null)
 
             override fun save(client: Client): Client = client
+            override fun deleteById(id: Long): Boolean =
+                false
         }
 
         val useCase = GetClientByIdUseCase(repository)
@@ -30,6 +32,8 @@ class GetClientByIdUseCaseTest {
         val repository = object : ClientRepository {
             override fun findById(id: Long): Client? = null
             override fun save(client: Client): Client = client
+            override fun deleteById(id: Long): Boolean =
+                false
         }
 
         val useCase = GetClientByIdUseCase(repository)

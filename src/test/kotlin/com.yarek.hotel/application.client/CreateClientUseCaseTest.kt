@@ -17,6 +17,9 @@ class CreateClientUseCaseTest {
 
             override fun findById(id: Long): Client? =
                 null
+
+            override fun deleteById(id: Long): Boolean =
+                false
         }
 
 

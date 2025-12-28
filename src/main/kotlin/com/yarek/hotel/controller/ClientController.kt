@@ -2,6 +2,7 @@ package com.yarek.hotel.controller
 
 import com.yarek.hotel.api.client.toDomain
 import com.yarek.hotel.application.client.CreateClientUseCase
+import com.yarek.hotel.application.client.DeleteClientUseCase
 import com.yarek.hotel.application.client.GetClientByIdUseCase
 import com.yarek.hotel.domain.client.Client
 import com.yarek.hotel.dto.ClientDto
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 class ClientController(
     private val createClientUseCase: CreateClientUseCase,
     private val getClientByIdUseCase: GetClientByIdUseCase,
+    private val deleteClientUseCase: DeleteClientUseCase,
     private val service: ClientService
 ) {
 
@@ -32,7 +34,7 @@ class ClientController(
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long) {
-        service.delete(id)
+        deleteClientUseCase.execute(id)
     }
 
     fun Client.toDto(): ClientDto = ClientDto(
