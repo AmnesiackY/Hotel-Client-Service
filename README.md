@@ -161,16 +161,39 @@ src/main/resources/db/migration
 ```
 Flyway automatically applies all pending migrations on application startup.
 
+## 🧪 Testing
+
+The project includes **unit tests for application use cases**.
+
+Unit tests are written for the **application layer** and verify business behavior
+without relying on Spring context, database, or external services.
+
+Key points:
+- Unit tests target **use cases** (business logic)
+- Dependencies are injected via interfaces and replaced with fakes in tests
+- Tests are fast, deterministic, and easy to maintain
+
+Example:
+- `CreateClientUseCaseTest` verifies client creation logic without database access
+
+## ⚙️ Continuous Integration (CI)
+
+The project uses **GitHub Actions** for Continuous Integration.
+
+On every push and pull request to the `main` branch, the CI pipeline:
+- builds the project
+- runs all unit tests
+- ensures the application is in a healthy state
+
+This helps keep the main branch stable and prevents broken changes
+from being merged.
+
 
 ## 🚀 Roadmap
 ```
 1. OpenAPI / Swagger documentation
 2. Dockerized Spring Boot application
 3. Unit and integration tests
-4. CI pipeline
-
-̶1P̶o̶s̶t̶g̶r̶e̶S̶Q̶L̶ ̶v̶i̶a̶ ̶D̶o̶c̶k̶e̶r̶
-F̶l̶y̶w̶a̶y̶ ̶d̶a̶t̶a̶b̶a̶s̶e̶ ̶m̶i̶g̶r̶a̶t̶i̶o̶n̶s̶
 ```
 
 
