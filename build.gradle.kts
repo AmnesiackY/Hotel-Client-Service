@@ -20,13 +20,15 @@ java {
 }
 
 dependencies {
+
+    //Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.flywaydb:flyway-core")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     //DB
+    implementation("org.flywaydb:flyway-core")
     runtimeOnly("org.postgresql:postgresql")
 
     // Unit tests
@@ -35,6 +37,9 @@ dependencies {
 
     //Integration tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    //Utils
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
 tasks.test {
