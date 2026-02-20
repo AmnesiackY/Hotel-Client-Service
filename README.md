@@ -99,8 +99,14 @@ without Spring context or database.
 
 ### Prerequisites
 
-- Java 17
+- Java 21
+- Node.js 22+ (LTS)
 - Docker & Docker Compose
+
+### Install dependencies
+```bash
+npm install
+```
 
 ### Start PostgreSQL
 
@@ -162,7 +168,7 @@ Flyway automatically applies all pending migrations on application startup.
 
 ## ⚙️ Testing
 
-The project includes **unit tests for application use cases**.
+The project includes **Unit tests for application use cases**.
 
 Unit tests are written for the **application layer** and verify business behavior
 without relying on Spring context, database, or external services.
@@ -174,6 +180,15 @@ Key points:
 
 Example:
 - `CreateClientUseCaseTest` verifies client creation logic without database access
+
+### API Tests (TypeScript + Playwright)
+API tests are written in TypeScript using Playwright and cover the REST API end-to-end against a running instance of the service.
+
+#### Run API tests
+Make sure the application is running first, then:
+```bash
+npx playwright test
+```
 
 ## ⚙️ Continuous Integration (CI)
 
