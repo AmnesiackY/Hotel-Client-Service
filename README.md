@@ -1,6 +1,7 @@
 # Hotel Client Service
 
 ![Build](https://github.com/AmnesiackY/Hotel-Client-Service/actions/workflows/build.yml/badge.svg)
+![Release](https://img.shields.io/github/v/release/AmnesiackY/Hotel-Client-Service)
 
 Spring Boot microservice for managing hotel clients.  
 Built with **Kotlin**, **Spring Boot**, **PostgreSQL**, and **Flyway**.
@@ -210,18 +211,48 @@ npx playwright test
 
 ---
 
-## ⚙️ Continuous Integration (CI)
+## ⚙️ Continuous Integration & Delivery (CI/CD)
 
-The project uses **GitHub Actions** for Continuous Integration.
+The project uses **GitHub Actions** with two separate pipelines:
 
-On every push and pull request to the `main` branch, the CI pipeline:
+### Build pipeline (`build.yml`)
+
+Triggered on every push and pull request to `main`:
 
 1. Builds the application using a **multi-stage Docker build**
 2. Runs all unit tests inside the builder stage
 3. Publishes a **test report** as a GitHub Actions artifact
 
-The pipeline uses **GitHub Actions Cache** for Docker layer caching,
-keeping subsequent builds under 1 minute.
+Uses **GitHub Actions Cache** for Docker layer caching, keeping builds under 1 minute.
+
+### Release pipeline (`release.yml`)
+
+Triggered on every push to `main`.  
+Uses [semantic-release](https://semantic-release.gitbook.io/) to automate versioning based on commit messages:
+
+| Commit type | Example | Version bump |
+|-------------|---------|--------------|
+| `fix:` | `fix: correct phone validation` | `1.0.0` → `1.0.1` |
+| `feat:` | `feat: add room endpoint` | `1.0.0` → `1.1.0` |
+| `feat!:` | `feat!: redesign client DTO` | `1.0.0` → `2.0.0` |
+| `chore:`, `docs:` | `chore: update deps` | no release |
+
+On release, the pipeline automatically:
+- Creates a **Git tag** (e.g. `v1.1.0`)
+- Generates a **GitHub Release**
+- Updates **CHANGELOG.md**
+
+### Commit message convention
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: add client search endpoint
+fix: correct pagination offset
+docs: update README
+chore: update dependencies
+feat!: remove legacy endpoint  ← breaking change
+```
 
 ---
 
@@ -232,8 +263,9 @@ keeping subsequent builds under 1 minute.
 ✅ Dockerized Spring Boot application (multi-stage build)
 ✅ Docker Compose with PostgreSQL and health checks
 ✅ GitHub Actions CI pipeline with test reporting and layer caching
+✅ Automated semantic versioning and releases with CHANGELOG generation
 ⬜ Extended integration test coverage
-⬜ Semantic versioning and automated releases
+⬜ Deploy to cloud infrastructure
 ```
 
 ---
