@@ -8,8 +8,6 @@ Built with **Kotlin**, **Spring Boot**, **PostgreSQL**, and **Flyway**.
 This project focuses on clean backend architecture, proper REST API design,
 and controlled database schema evolution using Flyway with a production-ready persistence setup.
 
-
-
 ---
 
 ## 📌 Features
@@ -39,6 +37,7 @@ and controlled database schema evolution using Flyway with a production-ready pe
 - Flyway
 - Gradle
 - Docker & Docker Compose
+- GitHub Actions
 
 ---
 
@@ -72,7 +71,9 @@ Layers overview:
 
 Business logic depends only on domain contracts and is fully testable
 without Spring context or database.
+
 ---
+
 ## 🧩 Architecture Diagram
 
 ```
@@ -93,28 +94,29 @@ without Spring context or database.
           v
 [ JPA Adapter / Database ]
 ```
+
 ---
 
 ## ▶️ Running the Application
 
 ### Prerequisites
 
-- Java 21
-- Node.js 22+ (LTS)
 - Docker & Docker Compose
 
-### Install dependencies
-```bash
-npm install
-```
-
-### Start PostgreSQL
+### Start the application
 
 ```bash
-docker compose up -d
+docker compose up --build
 ```
 
-PostgreSQL will be available on:
+This will start both PostgreSQL and the Spring Boot application.  
+The service will be available at:
+
+```
+http://localhost:8080
+```
+
+PostgreSQL connection details (for local access):
 ```
 Host: localhost
 Port: 5432
@@ -123,15 +125,21 @@ User: hotel_user
 Password: hotel_pass
 ```
 
-### Run Spring Boot application
+To stop and clean up:
+
+```bash
+docker compose down -v
+```
+
+### Running without Docker
+
+If you prefer to run locally without Docker, start PostgreSQL separately and then:
+
 ```bash
 ./gradlew bootRun
 ```
 
-The service will be available at:
-```
-http://localhost:8080
-```
+---
 
 ## 🧪 API Usage
 
@@ -152,6 +160,7 @@ Swagger provides:
 This allows quick exploration of the API without any additional tools
 such as Postman.
 
+---
 
 ## 🗄 Database & Migrations
 
@@ -159,16 +168,21 @@ The service uses PostgreSQL running in a Docker container.
 Database data is persisted using Docker volumes.
 
 ### Flyway migrations
+
 Database schema is managed using Flyway.
 Migration files are located in:
+
 ```
 src/main/resources/db/migration
 ```
+
 Flyway automatically applies all pending migrations on application startup.
+
+---
 
 ## ⚙️ Testing
 
-The project includes **Unit tests for application use cases**.
+The project includes **unit tests for application use cases**.
 
 Unit tests are written for the **application layer** and verify business behavior
 without relying on Spring context, database, or external services.
@@ -178,41 +192,54 @@ Key points:
 - Dependencies are injected via interfaces and replaced with fakes in tests
 - Tests are fast, deterministic, and easy to maintain
 
-Example:
-- `CreateClientUseCaseTest` verifies client creation logic without database access
+### Run tests
+
+```bash
+./gradlew test
+```
 
 ### API Tests (TypeScript + Playwright)
+
 API tests are written in TypeScript using Playwright and cover the REST API end-to-end against a running instance of the service.
 
-#### Run API tests
 Make sure the application is running first, then:
+
 ```bash
 npx playwright test
 ```
+
+---
 
 ## ⚙️ Continuous Integration (CI)
 
 The project uses **GitHub Actions** for Continuous Integration.
 
 On every push and pull request to the `main` branch, the CI pipeline:
-- builds the project
-- runs all unit tests
-- ensures the application is in a healthy state
 
-This helps keep the main branch stable and prevents broken changes
-from being merged.
+1. Builds the application using a **multi-stage Docker build**
+2. Runs all unit tests inside the builder stage
+3. Publishes a **test report** as a GitHub Actions artifact
 
+The pipeline uses **GitHub Actions Cache** for Docker layer caching,
+keeping subsequent builds under 1 minute.
+
+---
 
 ## 🚀 Roadmap
+
 ```
-1. Dockerized Spring Boot application
-2. Extended unit and integration test coverage
+✅ Clean layered architecture (Domain, Application, API, Infrastructure)
+✅ Dockerized Spring Boot application (multi-stage build)
+✅ Docker Compose with PostgreSQL and health checks
+✅ GitHub Actions CI pipeline with test reporting and layer caching
+⬜ Extended integration test coverage
+⬜ Semantic versioning and automated releases
 ```
 
+---
 
-
-👤 Author
+👤 **Author**
 
 Yaroslav Yarovyi  
 QA / Automation Engineer  
-Currently exploring backend development with Kotlin & Spring
+Currently exploring backend development and DevOps with Kotlin & Spring
