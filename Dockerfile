@@ -8,7 +8,7 @@ RUN chmod +x gradlew && sed -i 's/\r//' gradlew
 RUN ./gradlew dependencies --no-daemon
 
 COPY src ./src
-RUN ./gradlew clean build -x test --no-daemon
+RUN ./gradlew clean build --no-daemon
 
 # --- Stage 2: Runtime ---
 FROM eclipse-temurin:17-jre-alpine
