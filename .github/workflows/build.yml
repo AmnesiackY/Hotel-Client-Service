@@ -32,7 +32,7 @@ jobs:
       - name: Extract test results
         if: always()
         run: |
-          docker build --target builder -t hotel-builder .
+          mkdir -p ./build/test-results
           docker create --name temp hotel-builder
           docker cp temp:/app/build/test-results ./build/test-results
           docker rm temp
