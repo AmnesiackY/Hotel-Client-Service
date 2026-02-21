@@ -35,8 +35,9 @@ jobs:
         if: always()
         run: |
           mkdir -p ./build/test-results
-          docker create --name temp hotel-builder
-          docker cp temp:/app/build/test-results ./build/test-results
+          docker build --target builder -t hotel-builder-stage .
+          docker create --name temp hotel-builder-stage
+          docker cp temp:/app/build/test-results/. ./build/test-results
           docker rm temp
 
       - name: Publish test report
