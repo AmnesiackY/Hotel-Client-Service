@@ -18,14 +18,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build and run tests via Docker Compose
-        run: |
-          docker compose up --build --abort-on-container-exit --exit-code-from app
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Copy test results from container
+      - name: Build and test
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Extract test results
         if: always()
         run: |
-          docker compose cp app:/app/build/test-results ./build/test-results      
+          docker build --target builder -t hotel-builder .
+          docker create --name temp hotel-builder
+          docker cp temp:/app/build/test-results ./build/test-results
+          docker rm temp
 
       - name: Publish test report
         uses: dorny/test-reporter@v1
@@ -34,7 +44,3 @@ jobs:
           name: Unit Tests
           path: build/test-results/test/*.xml
           reporter: java-junit
-
-      - name: Cleanup
-        if: always()
-        run: docker compose down -v    
