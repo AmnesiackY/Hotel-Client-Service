@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.yarek"
-version = "0.0.1-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 

@@ -1,9 +1,8 @@
-version: "3.9"
-
 services:
+
   postgres:
     image: postgres:16
-    container_name: hotel-postgres
+    container_name: base-hotel-postgres
     ports:
       - "5432:5432"
     environment:
@@ -13,10 +12,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
+      test: ["CMD-SHELL", "pg_isready -U hotel_user -d hotel"]
+      interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
+
+  app:
+    build: . 
+    container_name: hotel-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/hotel
+      SPRING_DATASOURCE_USERNAME: hotel_user
+      SPRING_DATASOURCE_PASSWORD: hotel_pass
+    depends_on:
+      postgres:
+        condition: service_healthy  
 
 volumes:
   postgres_data:
